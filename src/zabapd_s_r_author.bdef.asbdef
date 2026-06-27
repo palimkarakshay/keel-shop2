@@ -1,0 +1,32 @@
+managed implementation in class zbp_abapd_s_r_author unique;
+strict ( 2 );
+define behavior for ZABAPD_S_R_AUTHOR alias Author
+persistent table zabapd_s_author
+lock master
+authorization master ( global )
+etag master LastChangedAt
+{
+  field ( numbering : managed, readonly ) AuthorUuid;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) Name;
+
+  create;
+  update;
+  delete;
+
+  validation validateName on save { create; update; field Name; }
+
+  mapping for zabapd_s_author
+  {
+    AuthorUuid         = author_uuid;
+    Name               = name;
+    Country            = country;
+    BornYear           = born_year;
+    Bio                = bio;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

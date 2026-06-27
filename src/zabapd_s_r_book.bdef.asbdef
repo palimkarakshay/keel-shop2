@@ -1,0 +1,43 @@
+managed implementation in class zbp_abapd_s_r_book unique;
+strict ( 2 );
+define behavior for ZABAPD_S_R_BOOK alias Book
+persistent table zabapd_s_book
+lock master
+authorization master ( global )
+etag master LastChangedAt
+{
+  field ( numbering : managed, readonly ) BookUuid;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) Title, Author;
+  field ( readonly ) StatusCriticality;
+
+  create;
+  update;
+  delete;
+
+  determination setDefaults on modify { create; }
+  validation validateRating on save { create; update; field Rating; }
+  validation validateTitle  on save { create; update; field Title; }
+
+  action ( features : instance ) markFeatured   result [1] $self;
+  action ( features : instance ) unmarkFeatured result [1] $self;
+
+  mapping for zabapd_s_book
+  {
+    BookUuid           = book_uuid;
+    Title              = title;
+    Author             = author;
+    Genre              = genre;
+    ReleaseYear        = release_year;
+    Price              = price;
+    CurrencyCode       = currency_code;
+    Rating             = rating;
+    Status             = status;
+    Featured           = featured;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

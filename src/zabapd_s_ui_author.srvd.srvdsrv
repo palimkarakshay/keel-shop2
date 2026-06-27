@@ -1,0 +1,4 @@
+@EndUserText.label: 'Bookstore author service'
+define service ZABAPD_S_UI_AUTHOR {
+  expose ZABAPD_S_C_AUTHOR as Author;
+}

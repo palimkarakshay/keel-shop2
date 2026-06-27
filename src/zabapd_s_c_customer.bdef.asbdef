@@ -1,0 +1,8 @@
+projection;
+strict ( 2 );
+define behavior for ZABAPD_S_C_CUSTOMER alias Customer
+{
+  use create;
+  use update;
+  use delete;
+}

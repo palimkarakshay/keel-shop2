@@ -1,0 +1,5 @@
+@EndUserText.label: 'Bookstore order service'
+define service ZABAPD_S_UI_ORDER {
+  expose ZABAPD_S_C_ORDER as SalesOrder;
+  expose ZABAPD_S_C_ORDERITEM as OrderItem;
+}

@@ -1,0 +1,12 @@
+@Metadata.layer: #CUSTOMER
+annotate view ZABAPD_S_C_ORDERITEM with
+{
+  @UI.lineItem: [ { position: 10, importance: #HIGH } ]
+  BookTitle;
+  @UI.lineItem: [ { position: 20, importance: #HIGH } ]
+  Quantity;
+  @UI.lineItem: [ { position: 30, importance: #MEDIUM } ]
+  UnitPrice;
+  @UI.lineItem: [ { position: 40, importance: #HIGH } ]
+  LineAmount;
+}

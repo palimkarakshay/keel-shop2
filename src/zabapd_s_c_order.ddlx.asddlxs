@@ -1,0 +1,45 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Order',
+    typeNamePlural: 'Orders',
+    title:       { type: #STANDARD, value: 'OrderNo' },
+    description: { type: #STANDARD, value: 'CustomerName' }
+  }
+}
+annotate view ZABAPD_S_C_ORDER with
+{
+  @UI.facet: [
+    { id: 'Order', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE, label: 'Order', position: 10 },
+    { id: 'Items', purpose: #STANDARD, type: #LINEITEM_REFERENCE, label: 'Items', position: 20, targetElement: '_Items' }
+  ]
+
+  @UI: { lineItem: [ { position: 10, importance: #HIGH } ], identification: [ { position: 10 } ] }
+  OrderNo;
+
+  @UI: { lineItem: [ { position: 20, importance: #HIGH } ],
+         identification: [ { position: 20 } ], selectionField: [ { position: 10 } ] }
+  CustomerName;
+
+  @UI: { lineItem: [ { position: 30, importance: #MEDIUM } ], identification: [ { position: 30 } ] }
+  OrderDate;
+
+  @UI: { lineItem: [ { position: 40, importance: #HIGH, criticality: 'StatusCriticality' },
+                     { type: #FOR_ACTION, dataAction: 'pay',     label: 'Pay' },
+                     { type: #FOR_ACTION, dataAction: 'ship',    label: 'Ship' },
+                     { type: #FOR_ACTION, dataAction: 'deliver', label: 'Deliver' },
+                     { type: #FOR_ACTION, dataAction: 'cancel',  label: 'Cancel' } ],
+         identification: [ { position: 40, criticality: 'StatusCriticality' },
+                     { type: #FOR_ACTION, dataAction: 'pay',     label: 'Pay' },
+                     { type: #FOR_ACTION, dataAction: 'ship',    label: 'Ship' },
+                     { type: #FOR_ACTION, dataAction: 'deliver', label: 'Deliver' },
+                     { type: #FOR_ACTION, dataAction: 'cancel',  label: 'Cancel' } ],
+         selectionField: [ { position: 20 } ] }
+  Status;
+
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI: { lineItem: [ { position: 50, importance: #HIGH } ], identification: [ { position: 50 } ] }
+  TotalAmount;
+}

@@ -1,0 +1,11 @@
+projection;
+strict ( 2 );
+define behavior for ZABAPD_S_C_BOOK alias Book
+{
+  use create;
+  use update;
+  use delete;
+
+  use action markFeatured;
+  use action unmarkFeatured;
+}

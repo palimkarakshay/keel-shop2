@@ -1,0 +1,36 @@
+managed implementation in class zbp_abapd_s_r_customer unique;
+strict ( 2 );
+define behavior for ZABAPD_S_R_CUSTOMER alias Customer
+persistent table zabapd_s_cust
+lock master
+authorization master ( global )
+etag master LastChangedAt
+{
+  field ( numbering : managed, readonly ) CustomerUuid;
+  field ( readonly ) CustomerNo, LoyaltyCriticality, CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) Name, Email;
+
+  create;
+  update;
+  delete;
+
+  determination setCustomerNo on save { create; }
+  validation validateEmail on save { create; update; field Email; }
+
+  mapping for zabapd_s_cust
+  {
+    CustomerUuid       = customer_uuid;
+    CustomerNo         = customer_no;
+    Name               = name;
+    Email              = email;
+    City               = city;
+    Country            = country;
+    LoyaltyTier        = loyalty_tier;
+    Since              = since;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

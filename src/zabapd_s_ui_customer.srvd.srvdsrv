@@ -1,0 +1,4 @@
+@EndUserText.label: 'Bookstore customer service'
+define service ZABAPD_S_UI_CUSTOMER {
+  expose ZABAPD_S_C_CUSTOMER as Customer;
+}

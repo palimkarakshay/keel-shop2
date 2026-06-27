@@ -1,0 +1,28 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Author',
+    typeNamePlural: 'Authors',
+    title:       { type: #STANDARD, value: 'Name' },
+    description: { type: #STANDARD, value: 'Country' }
+  }
+}
+annotate view ZABAPD_S_C_AUTHOR with
+{
+  @UI.facet: [ { id: 'Author', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE,
+                 label: 'Author Details', position: 10 } ]
+
+  @UI: { lineItem: [ { position: 10, importance: #HIGH } ],
+         identification: [ { position: 10 } ], selectionField: [ { position: 10 } ] }
+  Name;
+
+  @UI: { lineItem: [ { position: 20, importance: #HIGH } ],
+         identification: [ { position: 20 } ], selectionField: [ { position: 20 } ] }
+  Country;
+
+  @UI: { lineItem: [ { position: 30, importance: #MEDIUM } ], identification: [ { position: 30 } ] }
+  BornYear;
+
+  @UI: { identification: [ { position: 40 } ] }
+  Bio;
+}

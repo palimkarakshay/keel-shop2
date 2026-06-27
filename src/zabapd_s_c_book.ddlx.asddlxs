@@ -1,0 +1,53 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Book',
+    typeNamePlural: 'Books',
+    title:       { type: #STANDARD, value: 'Title' },
+    description: { type: #STANDARD, value: 'Author' }
+  }
+}
+annotate view ZABAPD_S_C_BOOK with
+{
+  @UI.facet: [ { id: 'Book', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE,
+                 label: 'Book Details', position: 10 } ]
+
+  @UI: { lineItem: [ { position: 10, importance: #HIGH } ],
+         identification: [ { position: 10 } ], selectionField: [ { position: 10 } ] }
+  Title;
+
+  @UI: { lineItem: [ { position: 20, importance: #HIGH } ],
+         identification: [ { position: 20 } ], selectionField: [ { position: 20 } ] }
+  Author;
+
+  @UI: { lineItem: [ { position: 30, importance: #MEDIUM } ],
+         identification: [ { position: 30 } ], selectionField: [ { position: 30 } ] }
+  Genre;
+
+  @UI: { lineItem: [ { position: 40, importance: #MEDIUM } ], identification: [ { position: 40 } ] }
+  ReleaseYear;
+
+  @UI: { lineItem: [ { position: 50, importance: #MEDIUM } ], identification: [ { position: 50 } ] }
+  Price;
+
+  @UI.identification: [ { position: 55 } ]
+  CurrencyCode;
+
+  @UI: { lineItem: [ { position: 60, importance: #MEDIUM } ], identification: [ { position: 60 } ] }
+  Rating;
+
+  @UI: { lineItem: [ { position: 70, importance: #HIGH, criticality: 'StatusCriticality' } ],
+         identification: [ { position: 70, criticality: 'StatusCriticality' } ] }
+  Status;
+
+  @UI.hidden: true
+  StatusCriticality;
+
+  @UI: { lineItem: [ { position: 80, importance: #LOW },
+                     { type: #FOR_ACTION, dataAction: 'markFeatured',   label: 'Mark Featured' },
+                     { type: #FOR_ACTION, dataAction: 'unmarkFeatured', label: 'Unmark Featured' } ],
+         identification: [ { position: 80 },
+                     { type: #FOR_ACTION, dataAction: 'markFeatured',   label: 'Mark Featured' },
+                     { type: #FOR_ACTION, dataAction: 'unmarkFeatured', label: 'Unmark Featured' } ] }
+  Featured;
+}

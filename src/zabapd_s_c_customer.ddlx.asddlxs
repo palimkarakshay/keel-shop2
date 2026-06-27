@@ -1,0 +1,42 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Customer',
+    typeNamePlural: 'Customers',
+    title:       { type: #STANDARD, value: 'Name' },
+    description: { type: #STANDARD, value: 'Email' }
+  }
+}
+annotate view ZABAPD_S_C_CUSTOMER with
+{
+  @UI.facet: [ { id: 'Customer', purpose: #STANDARD, type: #IDENTIFICATION_REFERENCE,
+                 label: 'Customer Details', position: 10 } ]
+
+  @UI: { lineItem: [ { position: 10, importance: #HIGH } ], identification: [ { position: 10 } ] }
+  CustomerNo;
+
+  @UI: { lineItem: [ { position: 20, importance: #HIGH } ],
+         identification: [ { position: 20 } ], selectionField: [ { position: 10 } ] }
+  Name;
+
+  @UI: { lineItem: [ { position: 30, importance: #HIGH } ], identification: [ { position: 30 } ] }
+  Email;
+
+  @UI: { lineItem: [ { position: 40, importance: #MEDIUM } ],
+         identification: [ { position: 40 } ], selectionField: [ { position: 20 } ] }
+  City;
+
+  @UI: { lineItem: [ { position: 50, importance: #MEDIUM } ], identification: [ { position: 50 } ] }
+  Country;
+
+  @UI: { lineItem: [ { position: 60, importance: #HIGH, criticality: 'LoyaltyCriticality' } ],
+         identification: [ { position: 60, criticality: 'LoyaltyCriticality' } ],
+         selectionField: [ { position: 30 } ] }
+  LoyaltyTier;
+
+  @UI.hidden: true
+  LoyaltyCriticality;
+
+  @UI: { lineItem: [ { position: 70, importance: #LOW } ], identification: [ { position: 70 } ] }
+  Since;
+}

@@ -1,0 +1,21 @@
+projection;
+strict ( 2 );
+define behavior for ZABAPD_S_C_ORDER alias Order
+{
+  use create;
+  use update;
+  use delete;
+  use association _Items { create; }
+
+  use action pay;
+  use action ship;
+  use action deliver;
+  use action cancel;
+}
+
+define behavior for ZABAPD_S_C_ORDERITEM alias OrderItem
+{
+  use update;
+  use delete;
+  use association _Order;
+}

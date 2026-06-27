@@ -1,0 +1,78 @@
+managed implementation in class zbp_abapd_s_r_order unique;
+strict ( 2 );
+define behavior for ZABAPD_S_R_ORDER alias Order
+persistent table zabapd_s_order
+lock master
+authorization master ( global )
+etag master LastChangedAt
+{
+  field ( numbering : managed, readonly ) OrderUuid;
+  field ( readonly ) OrderNo, Status, StatusCriticality, TotalAmount;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) CustomerUuid;
+
+  create;
+  update;
+  delete;
+  association _Items { create; }
+
+  determination setOrderDefaults on modify { create; }
+  determination calcTotal on modify { create; }
+  validation validateItems on save { create; }
+
+  action ( features : instance ) pay     result [1] $self;
+  action ( features : instance ) ship    result [1] $self;
+  action ( features : instance ) deliver result [1] $self;
+  action ( features : instance ) cancel  result [1] $self;
+
+  mapping for zabapd_s_order
+  {
+    OrderUuid          = order_uuid;
+    OrderNo            = order_no;
+    CustomerUuid       = customer_uuid;
+    CustomerName       = customer_name;
+    OrderDate          = order_date;
+    Status             = status;
+    TotalAmount        = total_amount;
+    CurrencyCode       = currency_code;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+define behavior for ZABAPD_S_R_ORDERITEM alias OrderItem
+persistent table zabapd_s_oitem
+lock dependent by _Order
+authorization dependent by _Order
+etag master LastChangedAt
+{
+  field ( numbering : managed, readonly ) ItemUuid;
+  field ( readonly ) OrderUuid, LineAmount;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) BookUuid, Quantity;
+  update;
+  delete;
+  association _Order;
+
+  determination calcLineAmount on modify { create; field Quantity, UnitPrice; }
+
+  mapping for zabapd_s_oitem
+  {
+    ItemUuid           = item_uuid;
+    OrderUuid          = order_uuid;
+    BookUuid           = book_uuid;
+    BookTitle          = book_title;
+    Quantity           = quantity;
+    UnitPrice          = unit_price;
+    LineAmount         = line_amount;
+    CurrencyCode       = currency_code;
+    CreatedBy          = created_by;
+    CreatedAt          = created_at;
+    LastChangedBy      = last_changed_by;
+    LastChangedAt      = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
