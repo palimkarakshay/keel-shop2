@@ -1,8 +1,0 @@
-projection;
-strict ( 2 );
-define behavior for ZABAPD_S_C_REVIEW alias Review
-{
-  use create;
-  use update;
-  use delete;
-}
